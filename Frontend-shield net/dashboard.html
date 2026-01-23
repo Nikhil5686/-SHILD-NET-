@@ -20,8 +20,7 @@
 <body>
 
     <!-- Animated Grid Background -->
-    <div class="grid-background">
-       
+ -->
 
     <!-- Dashboard Container -->
     <div class="dashboard-container">
@@ -35,7 +34,29 @@
                 <span>SECURE</span>
             </div>
 
-            
+            <div class="theme-switcher-container" style="position: relative; top: 0; right: 0;">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme Menu"
+                    style="width: 40px; height: 40px; font-size: 1.2rem;">
+                    <span class="theme-icon-current">🎨</span>
+                </button>
+                <div class="theme-menu" id="themeMenu" style="top: 50px;">
+                    <div class="theme-option" data-theme="default" style="--theme-preview: #00d9ff;">
+                        <span>Cyber Defense</span>
+                    </div>
+                    <div class="theme-option" data-theme="light" style="--theme-preview: #0088cc;">
+                        <span>Light Command</span>
+                    </div>
+                    <div class="theme-option" data-theme="matrix" style="--theme-preview: #00ff41;">
+                        <span>Matrix Ops</span>
+                    </div>
+                    <div class="theme-option" data-theme="neon" style="--theme-preview: #ff00ff;">
+                        <span>Neon City</span>
+                    </div>
+                    <div class="theme-option" data-theme="crimson" style="--theme-preview: #ff0000;">
+                        <span>Crimson Guard</span>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <!-- Main Dashboard Area -->
@@ -47,61 +68,31 @@
                     <ul class="sidebar-nav">
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
-                                <span class="nav-icon"></span>
-                                    <!-- Professional dashboard icon (Live Ops) -->
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                        <rect x="3" y="3" width="7" height="7" rx="2"/>
-                                        <rect x="14" y="3" width="7" height="7" rx="2"/>
-                                        <rect x="14" y="14" width="7" height="7" rx="2"/>
-                                        <rect x="3" y="14" width="7" height="7" rx="2"/>
-                                    </svg>
-                                </span>
-                                <span>Live Ops</span>
+                                <span class="nav-icon">📊</span>
+                                <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <span class="nav-icon">
-                                    <!-- Professional chat icon (Live Scenario) -->
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                                    </svg>
-                                </span>
-                                <span>Live Scenario</span>
+                                <span class="nav-icon">💬</span>
+                                <span>Secure Messaging</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <span class="nav-icon">
-                                    <!-- Professional shield icon (Threat Monitor) -->
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                    </svg>
-                                </span>
+                                <span class="nav-icon">🛡️</span>
                                 <span>Threat Monitor</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <span class="nav-icon">
-                                    <!-- Professional clipboard icon (Audit Logs) -->
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                        <rect x="9" y="2" width="6" height="4" rx="1"/>
-                                        <path d="M4 7h16v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/>
-                                    </svg>
-                                </span>
-                                <span>Device</span>
+                                <span class="nav-icon">📋</span>
+                                <span>Audit Logs</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <span class="nav-icon">
-                                    <!-- Professional settings/gear icon (Settings) -->
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                        <circle cx="12" cy="12" r="3"/>
-                                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                                    </svg>
-                                </span>
+                                <span class="nav-icon">⚙️</span>
                                 <span>Settings</span>
                             </a>
                         </li>

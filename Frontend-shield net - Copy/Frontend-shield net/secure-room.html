@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ShieldNet - Secure Communication Lobby">
+    <title>Shield-Net - Secure Room</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Animated Grid Background -->
+    <div class="grid-background">
+        <div class="grid-layer"></div>
+    </div>
+
+    <!-- Secure Room Container -->
+    <div class="secure-room-container">
+
+        <!-- Header -->
+        <header class="secure-room-header">
+            <h1 class="secure-room-title">Secure Communication Lobby</h1>
+            <p class="secure-room-subtitle">Post-Quantum Encrypted Rooms</p>
+            <div class="security-status">
+                <span class="status-dot status-active"></span>
+                <span>Verification Complete - Access Granted</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="secure-room-content">
+
+            <!-- CREATE ROOM Section -->
+            <div class="room-section create-room-section">
+                <div class="section-header">
+                    <h2 class="section-title">🏢 Create Room</h2>
+                    <span class="section-badge">HEADQUARTERS ONLY</span>
+                </div>
+
+                <div id="create-room-content">
+                    <!-- Initially check user role -->
+                </div>
+            </div>
+
+            <!-- JOIN ROOM Section -->
+            <div class="room-section join-room-section">
+                <div class="section-header">
+                    <h2 class="section-title">🔐 Join Room</h2>
+                    <span class="section-badge">AVAILABLE ROOMS</span>
+                </div>
+
+                <div id="available-rooms-list">
+                    <!-- Rooms will be populated here -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Secure Room JavaScript -->
+    <script>
+        /* ===================================
+           SECURE ROOM MANAGEMENT
+           =================================== */
+
+        // Simulated user role (in real app, this would come from session/auth)
+        const USER_ROLE = localStorage.getItem('user Role') || 'FIELD_AGENT'; // Change to 'HEADQUARTERS' to test
+
+        // Room storage (in real app, this would be backend API)
+        let rooms = JSON.parse(localStorage.getItem('secureRooms')) || [
+            {
+                id: 1,
+                name: 'Alpha Command',
+                category: 'Operations',
+                purpose: 'Strategic planning and field coordination',
+                password: 'alpha2024',
+                createdBy: 'HEADQUARTERS'
+            },
+            {
+                id: 2,
+                name: 'Beta Intel',
+                category: 'Intelligence',
+                purpose: 'Threat analysis and information sharing',
+                password: 'beta2024',
+                createdBy: 'HEADQUARTERS'
+            }
+        ];
+
+        /* Create Room Form */
+        function initCreateRoom() {
+            const createRoomContent = document.getElementById('create-room-content');
+
+            if (USER_ROLE === 'HEADQUARTERS') {
+                // HQ can create rooms
+                createRoomContent.innerHTML = `
+                    <form class="create-room-form" id="createRoomForm">
+                        <div class="form-group">
+                            <label for="roomName">Room Name *</label>
+                            <input type="text" id="roomName" class="form-input" placeholder="Enter room name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="roomCategory">Room Category *</label>
+                           <select id="roomCategory" class="form-input" required>
+                                <option value="">Select category</option>
+                                <option value="Operations">Operations</option>
+                                <option value="Intelligence">Intelligence</option>
+                                <option value="Tactical">Tactical</option>
+                                <option value="Support">Support</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="roomPurpose">Purpose of Room *</label>
+                            <textarea id="roomPurpose" class="form-input" rows="3" placeholder="Describe the room's purpose" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="roomPassword">Room Password *</label>
+                            <input type="password" id="roomPassword" class="form-input" placeholder="Set secure password" required>
+                            <small class="form-note">⚠️ Password must be shared externally through secure channels</small>
+                        </div>
+
+                        <button type="submit" class="btn-create-room">Create Secure Room</button>
+                        
+                        <div id="create-room-message" class="form-message" style="display: none;"></div>
+                    </form>
+                `;
+
+                // Handle form submission
+                document.getElementById('createRoomForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const newRoom = {
+                        id: rooms.length + 1,
+                        name: document.getElementById('roomName').value,
+                        category: document.getElementById('roomCategory').value,
+                        purpose: document.getElementById('roomPurpose').value,
+                        password: document.getElementById('roomPassword').value,
+                        createdBy: USER_ROLE
+                    };
+
+                    rooms.push(newRoom);
+                    localStorage.setItem('secureRooms', JSON.stringify(rooms));
+
+                    // Show success message
+                    const messageEl = document.getElementById('create-room-message');
+                    messageEl.textContent = '✅ Room created successfully!';
+                    messageEl.className = 'form-message success-message';
+                    messageEl.style.display = 'block';
+
+                    // Reset form
+                    this.reset();
+
+                    // Refresh available rooms list
+                    initJoinRoom();
+
+                    // Hide message after 3 seconds
+                    setTimeout(() => {
+                        messageEl.style.display = 'none';
+                    }, 3000);
+                });
+
+            } else {
+                // Non-HQ users see restriction
+                createRoomContent.innerHTML = `
+                    <div class="restricted-access">
+                        <div class="restricted-icon">🚫</div>
+                        <h3>Create Room - Restricted</h3>
+                        <p>Only users with <strong>HEADQUARTERS</strong> clearance can create secure rooms.</p>
+                        <p class="restricted-note">Your current role: <span class="role-badge">${USER_ROLE}</span></p>
+                    </div>
+                `;
+            }
+        }
+
+        /* Join Room List */
+        function initJoinRoom() {
+            const roomsList = document.getElementById('available-rooms-list');
+
+            if (rooms.length === 0) {
+                roomsList.innerHTML = `
+                    <div class="no-rooms">
+                        <p>📭 No rooms available at this time</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let roomsHTML = '';
+            rooms.forEach(room => {
+                roomsHTML += `
+                    <div class="room-card">
+                        <div class="room-header">
+                            <h3 class="room-name">${room.name}</h3>
+                            <button class="room-category-badge">${room.category}</button>
+                        </div>
+                        <p class="room-purpose">${room.purpose}</p>
+                        
+                        <div class="room-join-form">
+                            <input type="password" 
+                                   class="room-password-input" 
+                                   id="password-${room.id}" 
+                                   placeholder="Enter room password">
+                            <button class="btn-join-room" onclick="joinRoom(${room.id})">
+                                JOIN ROOM
+                            </button>
+                        </div>
+                        <div id="join-message-${room.id}" class="join-message" style="display: none; margin-top: 10px; font-size: 0.9rem;"></div>
+                    </div>
+                `;
+            });
+
+            roomsList.innerHTML = roomsHTML;
+        }
+
+        /* Join Room Function */
+        function joinRoom(roomId) {
+            const room = rooms.find(r => r.id === roomId);
+            const inputPassword = document.getElementById(`password-${roomId}`).value;
+            const messageEl = document.getElementById(`join-message-${roomId}`);
+
+            if (!inputPassword) {
+                messageEl.textContent = '⚠️ Please enter the room password';
+                messageEl.className = 'join-message error-message';
+                messageEl.style.display = 'block';
+                setTimeout(() => messageEl.style.display = 'none', 3000);
+                return;
+            }
+
+            if (inputPassword === room.password) {
+                // Success - Access granted
+                messageEl.textContent = '✅ Access Granted! Connecting to secure room...';
+                messageEl.className = 'join-message success-message';
+                messageEl.style.display = 'block';
+
+                // In real app, would redirect to actual room
+                setTimeout(() => {
+                    alert(`Connected to: ${room.name}\\nCategory: ${room.category}\\n\\nIn a real deployment, this would open the secure communication interface.`);
+                    messageEl.style.display = 'none';
+                    document.getElementById(`password-${roomId}`).value = '';
+                }, 1500);
+
+            } else {
+                // Failed - Access denied
+                messageEl.textContent = '❌ Access Denied - Incorrect password';
+                messageEl.className = 'join-message error-message';
+                messageEl.style.display = 'block';
+                setTimeout(() => messageEl.style.display = 'none', 3000);
+
+                // Clear input
+                document.getElementById(`password-${roomId}`).value = '';
+            }
+        }
+
+        /* Initialize on page load */
+        document.addEventListener('DOMContentLoaded', function () {
+            initCreateRoom();
+            initJoinRoom();
+        });
+    </script>
+
+</body>
+
+</html>

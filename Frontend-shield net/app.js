@@ -374,7 +374,7 @@ function initNavigation() {
    LOGIN FORM HANDLING
    =================================== */
 
-/*function initLoginForm() {
+function initLoginForm() {
   const loginForm = document.querySelector('.login-form');
   const loginBtn = document.querySelector('.btn-login');
 

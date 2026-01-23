@@ -112,6 +112,31 @@ body.theme-neon {
   --glass-border: rgba(255, 0, 255, 0.3);
 }
 
+/* Theme 5: Crimson Guard (Dark Graphite/Red) */
+body.theme-crimson {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #161616;
+  --bg-tertiary: #202020;
+  --bg-card: rgba(30, 0, 0, 0.7);
+
+  --text-primary: #ffcccc;
+  --text-secondary: #cc6666;
+  --text-muted: #663333;
+
+  --accent-cyan: #ff0000;
+  --accent-blue: #cc0000;
+  --accent-red: #ff0000;
+  --accent-green: #ff9900;
+
+  --border-color: rgba(255, 0, 0, 0.4);
+  --glow-color: rgba(255, 0, 0, 0.6);
+
+  --grid-base: rgba(255, 0, 0, 0.05);
+  --grid-hover: rgba(255, 0, 0, 0.5);
+
+  --glass-bg: rgba(30, 0, 0, 0.5);
+  --glass-border: rgba(255, 0, 0, 0.3);
+}
 
 /* Theme switch transition */
 body {
@@ -136,21 +161,454 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* ===================================
+   ANIMATED GRID BACKGROUND
+   =================================== */
+
+.grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.grid-layer {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  gap: 2px;
+  transition: transform 0.1s ease-out;
+}
+
+.grid-cell {
+  background-color: var(--grid-base);
+  border: 1px solid var(--grid-base);
+  transition: all 0.3s ease;
+  will-change: transform, background-color, border-color;
+}
+
+.grid-cell.active {
+  background-color: var(--grid-hover);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--glow-color);
+  transform: scale(1.1);
+}
+
+/* Subtle pulse animation for grid */
+@keyframes gridPulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.grid-cell:nth-child(3n) {
+  animation: gridPulse 4s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.grid-cell:nth-child(5n) {
+  animation: gridPulse 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
 
 
+/* ===================================
+   ROBODOG AI - TWO EYES
+   =================================== */
 
+.robodog-container {
+  position: fixed;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 0 30px var(--glow-color));
+}
 
+.robodog-head {
+  width: 240px;
+  height: 280px;
+  position: relative;
+}
 
+/* Head frame */
+.head-frame {
+  width: 100%;
+  height: 200px;
+  border: 3px solid var(--accent-cyan);
+  border-radius: 20px;
+  position: relative;
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #1a1a1a);
+  animation: headPulse 4s ease-in-out infinite;
+}
 
+@keyframes headPulse {
 
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--glow-color);
+  }
 
+  50% {
+    box-shadow: 0 0 40px var(--glow-color), inset 0 0 20px rgba(0, 217, 255, 0.1);
+  }
+}
 
+/* Eyes container */
+.eyes-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+  position: absolute;
+  top: 40px;
+}
 
- 
+/* Individual eye */
+.robo-eye {
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
 
+/* Eye outer ring */
+.eye-ring {
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--accent-cyan);
+  border-radius: 50%;
+  position: absolute;
+  animation: eyeRingPulse 3s ease-in-out infinite;
+}
 
+.robo-eye:nth-child(2) .eye-ring {
+  animation-delay: 0.3s;
+}
 
+@keyframes eyeRingPulse {
 
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* Eye inner */
+.eye-inner {
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease-out, height 0.3s ease-out;
+}
+
+/* Pupil that follows mouse */
+.eye-pupil {
+  width: 45%;
+  height: 45%;
+  background-color: var(--bg-primary);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 5px var(--accent-cyan);
+}
+
+/* Nose sensor */
+.robo-nose {
+  width: 20px;
+  height: 20px;
+  background: var(--accent-red);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 15px var(--accent-red);
+  animation: nosePulse 2s ease-in-out infinite;
+}
+
+@keyframes nosePulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Antenna */
+.antenna {
+  width: 2px;
+  height: 40px;
+  background: var(--accent-cyan);
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.antenna-tip {
+  width: 10px;
+  height: 10px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 20px var(--accent-cyan);
+  animation: antennaBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes antennaBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Eye blink and closed states */
+@keyframes eyeBlink {
+
+  0%,
+  90%,
+  100% {
+    height: 70%;
+  }
+
+  95% {
+    height: 5%;
+  }
+}
+
+.eye-inner.blinking {
+  animation: eyeBlink 0.3s ease-in-out;
+}
+
+.eye-inner.closed {
+  height: 5%;
+  transition: height 0.2s ease-out;
+}
+
+.eye-inner.open {
+  height: 70%;
+  transition: height 0.2s ease-out;
+}
+
+/* ===================================
+   GLASSMORPHISM LOGIN PANEL
+   =================================== */
+
+.login-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 100vh;
+  padding: 20px;
+  padding-right: 10%;
+}
+
+.login-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 50px 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 60px var(--glow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 80px var(--glow-color);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.login-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 20px var(--glow-color);
+}
+
+.login-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* Form inputs */
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  width: 100%;
+  background: rgb(255, 255, 255);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-control:focus {
+  background: rgb(255, 255, 255);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+}
+
+/* Login button */
+.btn-login {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+.btn-login::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-login:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Secure status indicator */
+.secure-status {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-green);
+  border-radius: 50%;
+  animation: statusPulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--accent-green);
+}
+
+@keyframes statusPulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* ===================================
+   DASHBOARD LAYOUT
+   =================================== */
 
 .dashboard-container {
   position: relative;
@@ -215,7 +673,104 @@ body {
   }
 }
 
+/* Theme Switcher UI */
+.theme-switcher-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
 
+.theme-toggle-btn {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  font-size: 1.5rem;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-card);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px var(--glow-color);
+  transform: rotate(15deg);
+}
+
+.theme-menu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: var(--bg-card);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px;
+  width: 200px;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform-origin: top right;
+  animation: menuSlideIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.theme-menu.show {
+  display: flex;
+}
+
+@keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.theme-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.theme-option.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accent-cyan);
+  border-color: var(--border-color);
+}
+
+.theme-option::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--theme-preview);
+  box-shadow: 0 0 8px var(--theme-preview);
+}
 
 /* Old toggle override if present in dashboard */
 .theme-toggle {

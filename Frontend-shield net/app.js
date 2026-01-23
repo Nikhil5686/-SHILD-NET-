@@ -29,7 +29,7 @@ window.addEventListener('resize', () => {
    ANIMATED GRID BACKGROUND
    =================================== */
 
-/*function initGridBackground() {
+function initGridBackground() {
   const gridBackground = document.querySelector('.grid-background');
   if (!gridBackground) return;
 
@@ -203,7 +203,7 @@ function initRobodogEyes() {
    THEME SWITCHER
    =================================== */
 
-/*function initThemeSwitcher() {
+function initThemeSwitcher() {
   const themeBtn = document.getElementById('themeToggleBtn');
   const themeMenu = document.getElementById('themeMenu');
   const themeOptions = document.querySelectorAll('.theme-option');
@@ -267,7 +267,7 @@ function initRobodogEyes() {
    DASHBOARD REAL-TIME SIMULATIONS
    =================================== */
 
-/*function initDashboardSimulations() {
+function initDashboardSimulations() {
   // Only run if on dashboard
   if (!document.querySelector('.dashboard-container')) return;
 
@@ -352,7 +352,7 @@ function initRobodogEyes() {
    NAVIGATION ACTIVE STATE
    =================================== */
 
-/*function initNavigation() {
+function initNavigation() {
   const navLinks = document.querySelectorAll('.nav-link');
 
   navLinks.forEach(link => {
@@ -399,7 +399,7 @@ function initRobodogEyes() {
    TRANSMISSION ANIMATION
    =================================== */
 
-/*function createTransmissionPulse(x, y) {
+function createTransmissionPulse(x, y) {
   const pulse = document.createElement('div');
   pulse.className = 'transmit-pulse';
   pulse.style.left = x + 'px';
@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
    INITIALIZE ALL FEATURES
    =================================== */
 
-/*document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   initGridBackground();
   initRobodogEyes();
   initThemeSwitcher();
@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
    =================================== */
 
 // Monitor FPS (optional - for development)
-/*if (window.location.search.includes('debug=true')) {
+if (window.location.search.includes('debug=true')) {
   let lastTime = performance.now();
   let frames = 0;
 
@@ -469,4 +469,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   requestAnimationFrame(measureFPS);
-}*/
+}

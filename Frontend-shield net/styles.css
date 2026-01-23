@@ -1,0 +1,1099 @@
+/* ===================================
+   ShieldNet Defense UI - Styles
+   Cyber-futuristic defense dashboard
+   =================================== */
+
+/* ===================================
+   CSS VARIABLES - THEME SYSTEM
+   =================================== */
+
+:root {
+  /* Default Theme: Cyber Defense (Dark/Cyan) */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --bg-card: rgba(26, 26, 26, 0.7);
+
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --text-muted: #707070;
+
+  --accent-cyan: #00d9ff;
+  --accent-blue: #0066ff;
+  --accent-red: #ff3366;
+  --accent-green: #00ff88;
+
+  --border-color: rgba(0, 217, 255, 0.3);
+  --glow-color: rgba(0, 217, 255, 0.6);
+
+  --grid-base: rgba(255, 255, 255, 0.03);
+  --grid-hover: rgba(0, 217, 255, 0.4);
+
+  --glass-bg: rgba(26, 26, 26, 0.4);
+  --glass-border: rgba(0, 217, 255, 0.2);
+}
+
+/* Theme 2: Light Command (Light/Blue) */
+body.theme-light {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e8e8e8;
+  --bg-card: rgba(255, 255, 255, 0.8);
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #8a8a8a;
+
+  --accent-cyan: #0088cc;
+  --accent-blue: #0055cc;
+  --accent-red: #cc0033;
+  --accent-green: #00aa55;
+
+  --border-color: rgba(0, 136, 204, 0.3);
+  --glow-color: rgba(0, 136, 204, 0.6);
+
+  --grid-base: rgba(0, 0, 0, 0.03);
+  --grid-hover: rgba(0, 136, 204, 0.4);
+
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(0, 136, 204, 0.2);
+}
+
+/* Theme 3: Matrix Ops (Black/Green) */
+body.theme-matrix {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #111111;
+  --bg-card: rgba(0, 20, 0, 0.8);
+
+  --text-primary: #00ff41;
+  --text-secondary: #008f11;
+  --text-muted: #003b00;
+
+  --accent-cyan: #00ff41;
+  --accent-blue: #008f11;
+  --accent-red: #ff0000;
+  /* Alert color remains red */
+  --accent-green: #00ff41;
+
+  --border-color: rgba(0, 255, 65, 0.3);
+  --glow-color: rgba(0, 255, 65, 0.6);
+
+  --grid-base: rgba(0, 255, 65, 0.05);
+  --grid-hover: rgba(0, 255, 65, 0.5);
+
+  --glass-bg: rgba(0, 20, 0, 0.6);
+  --glass-border: rgba(0, 255, 65, 0.3);
+}
+
+/* Theme 4: Neon City (Deep Purple/Pink) */
+body.theme-neon {
+  --bg-primary: #0f0014;
+  --bg-secondary: #1a0024;
+  --bg-tertiary: #2a0038;
+  --bg-card: rgba(30, 0, 40, 0.7);
+
+  --text-primary: #ffccff;
+  --text-secondary: #d480ff;
+  --text-muted: #8040a0;
+
+  --accent-cyan: #ff00ff;
+  --accent-blue: #aa00ff;
+  --accent-red: #ff3366;
+  --accent-green: #00ffcc;
+
+  --border-color: rgba(255, 0, 255, 0.4);
+  --glow-color: rgba(255, 0, 255, 0.7);
+
+  --grid-base: rgba(255, 0, 255, 0.05);
+  --grid-hover: rgba(255, 0, 255, 0.5);
+
+  --glass-bg: rgba(30, 0, 40, 0.5);
+  --glass-border: rgba(255, 0, 255, 0.3);
+}
+
+/* Theme 5: Crimson Guard (Dark Graphite/Red) */
+/* body.theme-crimson {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #161616;
+  --bg-tertiary: #202020;
+  --bg-card: rgba(30, 0, 0, 0.7);
+
+  --text-primary: #ffcccc;
+  --text-secondary: #cc6666;
+  --text-muted: #663333;
+
+  --accent-cyan: #ff0000;
+  --accent-blue: #cc0000;
+  --accent-red: #ff0000;
+  --accent-green: #ff9900;
+
+  --border-color: rgba(255, 0, 0, 0.4);
+  --glow-color: rgba(255, 0, 0, 0.6);
+
+  --grid-base: rgba(255, 0, 0, 0.05);
+  --grid-hover: rgba(255, 0, 0, 0.5);
+
+  --glass-bg: rgba(30, 0, 0, 0.5);
+  --glass-border: rgba(255, 0, 0, 0.3);
+} */
+
+/* Theme switch transition */
+body {
+  transition: background-color 0.5s ease, color 0.5s ease, --accent-cyan 0.5s ease;
+}
+
+/* ===================================
+   GLOBAL STYLES
+   =================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* ===================================
+   ANIMATED GRID BACKGROUND
+   =================================== */
+
+/* .grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+} */
+
+/* .grid-layer {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  gap: 2px;
+  transition: transform 0.1s ease-out;
+} */
+
+/* .grid-cell {
+  background-color: var(--grid-base);
+  border: 1px solid var(--grid-base);
+  transition: all 0.3s ease;
+  will-change: transform, background-color, border-color;
+}
+
+.grid-cell.active {
+  background-color: var(--grid-hover);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--glow-color);
+  transform: scale(1.1);
+} */
+
+/* Subtle pulse animation for grid */
+/* @keyframes gridPulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.grid-cell:nth-child(3n) {
+  animation: gridPulse 4s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.grid-cell:nth-child(5n) {
+  animation: gridPulse 5s ease-in-out infinite;
+  animation-delay: 1s;
+} */
+
+
+/* ===================================
+   ROBODOG AI - TWO EYES
+   =================================== */
+
+/* .robodog-container {
+  position: fixed;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 0 30px var(--glow-color));
+}
+
+.robodog-head {
+  width: 240px;
+  height: 280px;
+  position: relative;
+} */
+
+/* Head frame */
+/* .head-frame {
+  width: 100%;
+  height: 200px;
+  border: 3px solid var(--accent-cyan);
+  border-radius: 20px;
+  position: relative;
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #1a1a1a);
+  animation: headPulse 4s ease-in-out infinite;
+} */
+
+/* @keyframes headPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--glow-color);
+  }
+
+  50% {
+    box-shadow: 0 0 40px var(--glow-color), inset 0 0 20px rgba(0, 217, 255, 0.1);
+  }
+} */
+
+/* Eyes container */
+/* .eyes-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+  position: absolute;
+  top: 40px;
+} */
+
+/* Individual eye */
+/* .robo-eye {
+  width: 80px;
+  height: 80px;
+  position: relative;
+} */
+
+/* Eye outer ring */
+/* .eye-ring {
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--accent-cyan);
+  border-radius: 50%;
+  position: absolute;
+  animation: eyeRingPulse 3s ease-in-out infinite;
+} */
+
+/* .robo-eye:nth-child(2) .eye-ring {
+  animation-delay: 0.3s;
+} */
+
+/* @keyframes eyeRingPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+} */
+
+/* Eye inner */
+/* .eye-inner {
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease-out, height 0.3s ease-out;
+} */
+
+/* Pupil that follows mouse */
+/* .eye-pupil {
+  width: 45%;
+  height: 45%;
+  background-color: var(--bg-primary);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 5px var(--accent-cyan);
+} */
+
+/* Nose sensor */
+/* .robo-nose {
+  width: 20px;
+  height: 20px;
+  background: var(--accent-red);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 15px var(--accent-red);
+  animation: nosePulse 2s ease-in-out infinite;
+} */
+
+/* @keyframes nosePulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+} */
+
+/* Antenna */
+/* .antenna {
+  width: 2px;
+  height: 40px;
+  background: var(--accent-cyan);
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+} */
+
+/* .antenna-tip {
+  width: 10px;
+  height: 10px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 20px var(--accent-cyan);
+  animation: antennaBlink 1.5s ease-in-out infinite;
+} */
+
+/* @keyframes antennaBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+} */
+
+/* Eye blink and closed states */
+/* @keyframes eyeBlink {
+
+  0%,
+  90%,
+  100% {
+    height: 70%;
+  }
+
+  95% {
+    height: 5%;
+  }
+} */
+
+/* .eye-inner.blinking {
+  animation: eyeBlink 0.3s ease-in-out;
+}
+
+.eye-inner.closed {
+  height: 5%;
+  transition: height 0.2s ease-out;
+}
+
+.eye-inner.open {
+  height: 70%;
+  transition: height 0.2s ease-out;
+} */
+
+/* ===================================
+   GLASSMORPHISM LOGIN PANEL
+   =================================== */
+
+ /* .login-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 100vh;
+  padding: 20px;
+  padding-right: 10%;
+}
+
+.login-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 50px 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 60px var(--glow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 80px var(--glow-color);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.login-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 20px var(--glow-color);
+}
+
+.login-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+} */
+
+/* Form inputs */
+/* .form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+} 
+
+.form-control {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+} */
+
+/* Login button */
+/* .btn-login {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+.btn-login::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-login:hover::before {
+  width: 300px;
+  height: 300px;
+} */
+
+/* Secure status indicator */
+/* .secure-status {
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-green);
+  border-radius: 50%;
+  animation: statusPulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--accent-green);
+}
+
+@keyframes statusPulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+} */
+
+/* ===================================
+   DASHBOARD LAYOUT
+   =================================== */
+
+.dashboard-container {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top command bar */
+.command-bar {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.app-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 0 15px var(--glow-color);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid var(--accent-green);
+  border-radius: 20px;
+  color: var(--accent-green);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-indicator.alert {
+  background: rgba(255, 51, 102, 0.1);
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+  animation: alertPulse 1s ease-in-out infinite;
+}
+
+@keyframes alertPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Theme Switcher UI */
+/* .theme-switcher-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.theme-toggle-btn {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+  font-size: 1.5rem;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-card);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px var(--glow-color);
+  transform: rotate(15deg);
+}
+
+.theme-menu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: var(--bg-card);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px;
+  width: 200px;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform-origin: top right;
+  animation: menuSlideIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.theme-menu.show {
+  display: flex;
+} */
+
+/* @keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+} */
+
+/* .theme-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.theme-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.theme-option.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accent-cyan);
+  border-color: var(--border-color);
+}
+
+.theme-option::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--theme-preview);
+  box-shadow: 0 0 8px var(--theme-preview);
+} */
+
+/* Old toggle override if present in dashboard */
+.theme-toggle {
+  display: none;
+  /* Hide old toggle */
+}
+
+/* Main content area */
+.dashboard-main {
+  display: flex;
+  flex: 1;
+}
+
+/* Left sidebar */
+.sidebar {
+  width: 260px;
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid var(--border-color);
+  padding: 20px 0;
+  transition: all 0.5s ease;
+}
+
+.sidebar-nav {
+  list-style: none;
+}
+
+.nav-item {
+  margin: 5px 15px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--accent-cyan);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(0, 217, 255, 0.1);
+  color: var(--accent-cyan);
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+  transform: scaleY(1);
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+}
+
+/* Content area */
+.content-area {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* Dashboard cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3),
+    0 0 20px var(--glow-color);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-icon {
+  color: var(--accent-cyan);
+  font-size: 1.5rem;
+}
+
+/* Anomaly score indicator */
+.anomaly-score {
+  text-align: center;
+  padding: 20px;
+}
+
+.score-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  text-shadow: 0 0 20px var(--glow-color);
+}
+
+.score-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+/* Live logs */
+.logs-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  height: 250px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+.log-entry {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  animation: logSlideIn 0.3s ease;
+}
+
+@keyframes logSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.log-time {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.log-message {
+  color: var(--text-secondary);
+}
+
+.log-entry.success .log-message {
+  color: var(--accent-green);
+}
+
+.log-entry.warning .log-message {
+  color: #ffaa00;
+}
+
+.log-entry.error .log-message {
+  color: var(--accent-red);
+}
+
+/* Transmission animation */
+@keyframes transmit {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.transmit-pulse {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-cyan);
+  border-radius: 50%;
+  animation: transmit 1s ease-out;
+}
+
+/* Alert shake animation */
+@keyframes alertShake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.alert-shake {
+  animation: alertShake 0.3s ease-in-out;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 768px) {
+  .watchdog-container {
+    display: none;
+  }
+
+  .login-panel {
+    padding: 40px 30px;
+  }
+
+  .sidebar {
+    width: 70px;
+  }
+
+  .nav-link span {
+    display: none;
+  }
+
+  .content-area {
+    padding: 20px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .command-bar {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+/* ===================================
+   SCROLLBAR STYLING
+   =================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-cyan);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-blue);
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+.text-cyan {
+  color: var(--accent-cyan);
+}
+
+.text-green {
+  color: var(--accent-green);
+}
+
+.text-red {
+  color: var(--accent-red);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px currentColor;
+}
